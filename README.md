@@ -1,47 +1,118 @@
 # TanStack Start i18n Template
 
-A production-minded multilingual starter for [TanStack Start](https://tanstack.com/start).
-This is the open-source foundation used to build [SVGView.com](https://svgview.com),
-with localized routing, SEO metadata, an MDX blog, and a small accessible design system.
+A production-ready multilingual starter for building SEO-friendly tool websites with
+[TanStack Start](https://tanstack.com/start).
 
-## Case study: [SVGView.com](https://svgview.com)
+🚀 **Used in production:** [SVGView.com](https://svgview.com)
 
-[SVGView](https://svgview.com) is the reference implementation for this repository.
-The same foundation was extended into a browser-based SVG toolkit for viewing,
-editing, optimizing, and converting assets, including SVG-to-PNG and SVG-to-React
-export flows.
+## Preview
 
-The implementation demonstrates how to extend the skeleton without changing its
-core conventions:
+[![SVGView — a multilingual SVG toolkit powered by this starter](https://svgview.com/og-image.png)](https://svgview.com)
 
-- localized routes and language-aware links for a global audience;
-- SEO-ready tool pages, canonical URLs, `hreflang`, JSON-LD, sitemap, and robots.txt;
-- reusable landing-page and content components for viewer, optimizer, and converter flows;
-- local-only browser processing, keeping SVG files on the user's device;
-- Cloudflare-ready builds for fast, low-maintenance delivery.
+This template powers [SVGView.com](https://svgview.com), a multilingual SVG toolkit
+serving users worldwide. Open the [live demo](https://svgview.com) to see the routing,
+SEO pages, and content architecture in production.
 
-Use this repository as the reusable skeleton; visit [svgview.com](https://svgview.com)
-to see one product built on top of it.
+## Why this template?
 
-## Included
+Most TanStack Start examples focus on framework features. This starter focuses on
+shipping real-world, content-driven websites where internationalization and organic
+search are part of the architecture from day one:
 
-- **Canonical i18n routing** — English is unprefixed (`/blog`), while Chinese uses
-  `/zh/blog`; `/en/*` redirects to the default locale.
-- **SEO by default** — canonical links, localized `hreflang` with `x-default`, Open
-  Graph/Twitter cards, and JSON-LD helpers.
-- **Typed, lazy messages** — JSON catalogs with English fallback and per-locale loading.
-- **MDX content** — Zod-validated front matter, static compilation, localized slugs,
-  related posts, and translated article links.
-- **Accessible UI** — Tailwind CSS v4 tokens, light/dark themes, responsive layout,
-  keyboard-friendly navigation, and shadcn-style primitives.
-- **Cloudflare targets** — one build workflow for Pages or Workers.
+- 🌍 Multi-language routing
+- 🔎 SEO-friendly localized URLs
+- 📄 Markdown content system
+- 🗺️ Automatic sitemap and robots.txt generation
+- 🏗️ Production-ready project structure
+- ⚡ Optimized for content-driven tools and utility websites
 
-## Requirements
+## Features
 
-- Node.js 20+
-- pnpm 10.10.0 (Corepack recommended; pnpm 9+ is supported)
+### Internationalization
+
+- ✅ Multi-language routing with an optional `{-$locale}` segment
+- ✅ SEO-friendly localized pages
+- ✅ Automatic `hreflang` and `x-default` links
+- ✅ Accessible language switcher
+
+### Content system
+
+- ✅ Markdown/MDX-based content
+- ✅ Zod-validated front matter
+- ✅ Localized blog pages and slugs
+- ✅ Related posts and translated article links
+
+### SEO
+
+- ✅ Metadata and Open Graph/Twitter card helpers
+- ✅ Canonical URLs
+- ✅ JSON-LD structured data
+- ✅ Generated `sitemap.xml` and `robots.txt`
+
+### Developer experience
+
+- ✅ TypeScript and type-safe routing
+- ✅ Clean, reusable architecture
+- ✅ Responsive accessible UI with Tailwind CSS
+- ✅ Cloudflare Pages and Workers build targets
+
+## Tech stack
+
+- [TanStack Start](https://tanstack.com/start)
+- [TanStack Router](https://tanstack.com/router)
+- React
+- TypeScript
+- Tailwind CSS
+- Vite
+- Markdown/MDX content
+- `{-$locale}` optional-locale routing
+
+## Production example
+
+This template is used by:
+
+### [SVGView](https://svgview.com)
+
+SVGView is a browser-based SVG toolkit built on top of this repository.
+
+- SVG viewing, editing, optimizing, and conversion tools
+- Multi-language SEO pages
+- Content-led acquisition through localized articles and landing pages
+- Build-time content generation and Cloudflare delivery
+- Local-only browser processing for user files
+
+The production site is intentionally separate from this starter so the repository
+remains a focused, reusable foundation for tool and content websites.
+
+## Project structure
+
+```text
+content/
+└── blogs/                   MDX posts, one file per locale
+public/                      Static assets and generated sitemap/robots files
+scripts/                     Blog, sitemap, and deployment scripts
+src/
+├── routes/                  TanStack Start file-based routes
+│   ├── __root.tsx            Root document and global SEO alternates
+│   ├── index.tsx
+│   └── {-$locale}/           Optional locale segment
+│       └── (pages)/          Localized page route group
+│           ├── blog/
+│           └── about.tsx
+├── components/              Layout, landing, blog, legal, and UI components
+├── messages/<locale>/       JSON message catalogs
+├── lib/                     i18n, SEO, blog, and request helpers
+├── site.config.ts           Site identity and canonical URL
+└── router.tsx                Router configuration
+```
+
+The important idea is **SEO content architecture**, not just translation: routes,
+content, metadata, alternate links, and generated discovery files share the same
+locale-aware primitives.
 
 ## Quick start
+
+Requirements: Node.js 20+ and pnpm 10.10.0 (pnpm 9+ is supported).
 
 ```bash
 corepack enable
@@ -64,8 +135,8 @@ export const siteConfig = {
 } as const;
 ```
 
-The same `url` drives canonical URLs, JSON-LD, the sitemap, and `robots.txt`. Replace
-the placeholder assets in `public/` (`logo.png`, `og-image.png`, and `favicon.ico`).
+The `url` drives canonical URLs, JSON-LD, the sitemap, and `robots.txt`. Replace the
+placeholder assets in `public/` (`logo.png`, `og-image.png`, and `favicon.ico`).
 
 ## Internationalization
 
@@ -110,22 +181,9 @@ tags: ["setup", "i18n"]
 ---
 ```
 
-Blog files are trusted repository content: the build compiles MDX and renders its HTML
-directly. Do not connect this pipeline to user-submitted content without adding a
-sanitizer and an allowlisted component set.
-
-## Project structure
-
-```text
-content/blogs/            MDX posts, one file per locale
-public/                   Static assets and generated sitemap/robots files
-scripts/                  Blog generation, sitemap generation, deployment
-src/site.config.ts        Site identity and canonical URL
-src/lib/                  i18n, SEO, blog, and request helpers
-src/messages/<locale>/    JSON message catalogs
-src/routes/               TanStack Start file-based routes
-src/components/           Layout, landing, blog, legal, and UI components
-```
+Blog MDX is trusted repository content and is compiled as code. Do not connect this
+pipeline to user-submitted content without adding a sanitizer and an allowlisted
+component set.
 
 ## Commands
 
@@ -139,32 +197,30 @@ src/components/           Layout, landing, blog, legal, and UI components
 
 ## Deployment
 
-Cloudflare Pages is the default target. Authenticate once, set the project name, and
-deploy:
-
-| Command                   | Purpose                                |
-| ------------------------- | -------------------------------------- |
-| `pnpm run deploy`         | Build and deploy to Cloudflare Pages   |
-| `pnpm run deploy:pages`   | Explicit Pages deployment              |
-| `pnpm run deploy:workers` | Build and deploy to Cloudflare Workers |
+Cloudflare Pages is the default target:
 
 ```bash
 pnpm exec wrangler login
 CF_PAGES_PROJECT_NAME=your-project pnpm run deploy
 ```
 
-For Workers, run `pnpm run deploy:workers`. The Pages build outputs to `dist/`; the
-Workers build outputs to `.output/`. Do not deploy one target with the other target's
-Wrangler command. Deployment variables are documented in [`.env.example`](./.env.example).
+Use `pnpm run deploy:pages` for Pages or `pnpm run deploy:workers` for Workers. The
+Pages build outputs to `dist/`; the Workers build outputs to `.output/`.
 
 After deployment, submit `/sitemap.xml` to Search Console and verify canonical,
 `hreflang`, and JSON-LD output on a localized page.
 
-## Scope and license
+## Contributing
 
-Authentication, databases, APIs, analytics, and CMS integrations are intentionally
-left out so each product can choose the right architecture. See
-[`CONTRIBUTING.md`](./CONTRIBUTING.md) and [`SECURITY.md`](./SECURITY.md) for project
-workflows. This template is released under the [MIT License](./LICENSE). You may use,
-modify, and redistribute it, including in commercial projects, under the terms in
-[`LICENSE`](./LICENSE).
+Issues and pull requests are welcome. See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for
+the local checks and pull request conventions. Repository-specific AI/development
+guidance is available in [`AGENTS.md`](./AGENTS.md) and [`CLAUDE.md`](./CLAUDE.md).
+
+## License
+
+This template is released under the [MIT License](./LICENSE). You may use, modify,
+and redistribute it, including in commercial projects, under the terms in `LICENSE`.
+
+## Author
+
+Created and maintained by [reake](https://x.com/reakecom).

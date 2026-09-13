@@ -1,7 +1,7 @@
 {
   "name": "tanstack-start-i18n-template",
   "private": true,
-  "license": "Unlicense",
+  "license": "MIT",
   "packageManager": "pnpm@10.10.0",
   "engines": {
     "node": ">=20",
