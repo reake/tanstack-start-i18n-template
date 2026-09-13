@@ -1,0 +1,27 @@
+{
+  "badge": "404",
+  "title": "页面不存在",
+  "description": "找不到你要访问的页面，链接可能已失效或已移动。",
+  "pathLabel": "请求地址",
+  "actions": {
+    "back": "返回上一页",
+    "home": "回到首页"
+  },
+  "quickLinks": {
+    "title": "快速链接",
+    "items": [
+      {
+        "title": "首页",
+        "description": "模板包含什么，以及如何开始。"
+      },
+      {
+        "title": "博客",
+        "description": "关于多语言、元数据与内容的笔记。"
+      },
+      {
+        "title": "关于",
+        "description": "架构取舍，以及刻意未包含的部分。"
+      }
+    ]
+  }
+}

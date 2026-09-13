@@ -1,0 +1,7 @@
+dist/
+.output/
+.content-collections/
+src/generated/
+src/routeTree.gen.ts
+public/sitemap.xml
+pnpm-lock.yaml

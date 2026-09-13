@@ -1,0 +1,29 @@
+{
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "about": "About",
+    "language": "Language",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mainNavigation": "Main navigation",
+    "logoAlt": "{name} logo"
+  },
+  "footer": {
+    "description": "An open-source multilingual starter for TanStack Start: localized routing, SEO metadata, MDX content collections, and a light/dark design system.",
+    "navigation": "Footer navigation",
+    "copyright": "© {year} {name}. All rights reserved.",
+    "builtWith": "Built with TanStack Start"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "a11y": {
+    "skipToMain": "Skip to main content"
+  },
+  "onThisPage": "Contents"
+}

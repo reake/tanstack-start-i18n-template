@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "博客",
+    "description": "记录这个 TanStack Start 模板在多语言路由、SEO 与内容结构上的实践。",
+    "keywords": "tanstack start 博客, i18n 路由, seo 元数据, mdx 内容"
+  },
+  "breadcrumb": {
+    "home": "首页",
+    "blog": "博客"
+  },
+  "hero": {
+    "title": "博客",
+    "description": "短文记录这个模板如何处理语言、元数据与内容。"
+  },
+  "list": {
+    "title": "最新文章",
+    "readMore": "阅读全文"
+  },
+  "relatedPosts": {
+    "title": "相关文章",
+    "description": "来自同一模板的更多笔记。"
+  },
+  "actions": {
+    "backToBlog": "返回博客"
+  },
+  "empty": {
+    "title": "暂无文章",
+    "description": "在 content/blogs 添加一个 MDX 文件即可发布第一篇文章。"
+  }
+}

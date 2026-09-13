@@ -1,0 +1,27 @@
+{
+  "badge": "404",
+  "title": "Page not found",
+  "description": "We couldn’t find the page you’re looking for. The URL may be outdated or moved.",
+  "pathLabel": "Requested",
+  "actions": {
+    "back": "Go back",
+    "home": "Back to home"
+  },
+  "quickLinks": {
+    "title": "Quick links",
+    "items": [
+      {
+        "title": "Home",
+        "description": "What the template includes and how to start."
+      },
+      {
+        "title": "Blog",
+        "description": "Notes on locales, metadata, and content."
+      },
+      {
+        "title": "About",
+        "description": "Architecture decisions and what is left out."
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+---
+title: "How locale routing and SEO work here"
+description: "Why the default locale is unprefixed, how hreflang is generated, and what the sitemap contains."
+date: "2026-01-20"
+updated: "2026-01-20"
+tags: ["seo", "i18n", "routing"]
+author: "Template"
+cover: "/og-image.png"
+---
+
+# Locale routing and SEO
+
+Internationalization is easy to bolt on and hard to get right for search engines.
+These are the decisions this template makes.
+
+## One route tree, an optional locale segment
+
+Routes live under `src/routes/{-$locale}`. The braces make the segment optional, so
+`/blog` and `/zh/blog` both resolve to the same file.
+
+The default locale is never prefixed. Visiting `/en/blog` returns a `301` redirect
+to `/blog`, which keeps one canonical URL per page instead of two.
+
+## Alternates are generated, not hand-written
+
+`__root.tsx` renders the `<link rel="alternate" hreflang="..." />` tags for the
+current page and points `x-default` at the default locale. Blog posts are a special
+case: they only list locales that actually have a translated file, so you never
+advertise a translation that does not exist.
+
+## The sitemap is derived from the same sources
+
+`scripts/generate-sitemap.mjs` scans the route files and the MDX front matter, then
+writes alternate links for every language. Run it with `pnpm sitemap:generate`, or
+just run `pnpm build`.
+
+## Structured data
+
+The home page emits `WebSite` JSON-LD, the blog index emits `CollectionPage` and
+`ItemList`, and each post emits `BlogPosting` plus a `BreadcrumbList`. FAQ sections
+on the landing page emit `FAQPage`.

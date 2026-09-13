@@ -1,0 +1,45 @@
+---
+title: "从零开始使用这个模板"
+description: "配置多语言 TanStack Start 模板：设置站点信息、选择语言，并发布第一个页面。"
+date: "2026-01-12"
+updated: "2026-01-12"
+tags: ["上手", "多语言", "tanstack start"]
+author: "Template"
+cover: "/og-image.png"
+---
+
+# 快速开始
+
+这个模板已经准备好了一个多语言内容站点需要的基础：本地化路由、SEO 元数据，
+以及 MDX 博客。只需要改三处。
+
+## 1. 配置站点
+
+打开 `src/site.config.ts`，修改名称、域名与联系邮箱。canonical、Open Graph、
+JSON-LD 以及生成的 sitemap 都会使用这个域名，请在部署前设置好。
+
+## 2. 调整语言
+
+英文是默认语言，URL 不带前缀；中文位于 `/zh` 之下。要新增语言，把
+`src/messages/en` 复制为 `src/messages/<locale>`，翻译其中的 JSON 值，并在
+`src/lib/i18n.ts` 的 `NATIVE_LANGUAGE_LABELS` 中加入该语言的本地名称。
+
+路由、hreflang 与 sitemap 会自动识别新的语言。
+
+## 3. 写内容
+
+界面文案放在 `src/messages`。博客文章放在 `content/blogs`，使用带语言后缀的
+MDX 文件：
+
+```text
+content/blogs/getting-started.en.mdx
+content/blogs/getting-started.zh.mdx
+```
+
+两个文件共享同一个 slug `getting-started`，因此会被视为同一篇文章的不同语言
+版本，并通过 `hreflang` 互相链接。
+
+## 构建时会发生什么
+
+`pnpm build` 会编译 MDX、生成带类型的博客模块，并输出带有语言互链的
+`sitemap.xml`。无需额外配置。

@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "Blog",
+    "description": "Notes on multilingual routing, SEO, and content architecture in this TanStack Start template.",
+    "keywords": "tanstack start blog, i18n routing, seo metadata, mdx content"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "blog": "Blog"
+  },
+  "hero": {
+    "title": "Blog",
+    "description": "Short posts about how this template handles locales, metadata, and content."
+  },
+  "list": {
+    "title": "Latest posts",
+    "readMore": "Read post"
+  },
+  "relatedPosts": {
+    "title": "Related posts",
+    "description": "More notes from the same template."
+  },
+  "actions": {
+    "backToBlog": "Back to blog"
+  },
+  "empty": {
+    "title": "No posts yet",
+    "description": "Add an MDX file to content/blogs to publish the first one."
+  }
+}

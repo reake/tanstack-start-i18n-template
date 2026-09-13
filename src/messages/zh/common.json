@@ -1,0 +1,29 @@
+{
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "about": "关于",
+    "language": "语言",
+    "menu": "菜单",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "mainNavigation": "主导航",
+    "logoAlt": "{name} 标志"
+  },
+  "footer": {
+    "description": "基于 TanStack Start 的开源多语言模板：本地化路由、SEO 元数据、MDX 内容集合，以及明暗双主题设计系统。",
+    "navigation": "页脚导航",
+    "copyright": "© {year} {name}。保留所有权利。",
+    "builtWith": "使用 TanStack Start 构建"
+  },
+  "theme": {
+    "toggle": "切换主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "a11y": {
+    "skipToMain": "跳到主要内容"
+  },
+  "onThisPage": "目录"
+}

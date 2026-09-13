@@ -1,0 +1,46 @@
+---
+title: "Getting started with this template"
+description: "Set up the multilingual TanStack Start template: configure the site, pick your locales, and publish your first page."
+date: "2026-01-12"
+updated: "2026-01-12"
+tags: ["setup", "i18n", "tanstack start"]
+author: "Template"
+cover: "/og-image.png"
+---
+
+# Getting started
+
+This template ships with everything a multilingual content site needs: localized
+routing, SEO metadata, and an MDX blog. Setting it up takes three edits.
+
+## 1. Configure the site
+
+Open `src/site.config.ts` and change the name, URL, and contact email. The URL is
+used for canonical links, Open Graph tags, JSON-LD, and the generated sitemap, so
+set it before you deploy.
+
+## 2. Adjust the locales
+
+English is the default and stays unprefixed. Chinese lives under `/zh`. To add a
+language, copy `src/messages/en` to `src/messages/<locale>`, translate the JSON
+values, and add the native name to `NATIVE_LANGUAGE_LABELS` in `src/lib/i18n.ts`.
+
+Routes, hreflang alternates, and the sitemap pick up the new locale automatically.
+
+## 3. Write content
+
+Interface copy lives in `src/messages`. Blog posts live in `content/blogs` as MDX
+files with a locale suffix:
+
+```text
+content/blogs/getting-started.en.mdx
+content/blogs/getting-started.zh.mdx
+```
+
+Both files share the slug `getting-started`, so they are published as translations
+of one article and linked with `hreflang`.
+
+## What happens at build time
+
+`pnpm build` compiles the MDX, generates typed blog modules, and writes
+`sitemap.xml` with alternate language links. Nothing extra to configure.

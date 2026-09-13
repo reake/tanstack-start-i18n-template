@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "Multilingual TanStack Start Starter",
+    "description": "An open-source TanStack Start template with locale-prefixed routes, hreflang, JSON-LD, MDX blog content, and a responsive landing page.",
+    "keywords": "tanstack start, i18n template, multilingual website, react ssr, seo starter, mdx blog"
+  },
+  "hero": {
+    "badge": "TanStack Start · i18n · SEO",
+    "title": "Ship multilingual sites",
+    "highlight": "without the SEO tax",
+    "description": "Localized routes, canonical URLs, hreflang alternates, structured data, and a ready-made design system. Clone it, change one config file, and start writing content.",
+    "primaryCta": "Read the blog",
+    "secondaryCta": "About this template"
+  },
+  "highlights": {
+    "items": [
+      {
+        "title": "Two locales, one route tree",
+        "description": "English is unprefixed; /zh is prefixed."
+      },
+      {
+        "title": "SEO wired in",
+        "description": "Canonical, hreflang, OG, JSON-LD."
+      },
+      {
+        "title": "MDX blog",
+        "description": "Write posts, get localized pages."
+      }
+    ]
+  },
+  "features": {
+    "title": "What is included",
+    "description": "Everything a content site needs before you write the first line of product code.",
+    "items": [
+      {
+        "title": "Locale-aware routing",
+        "description": "An optional locale segment keeps one route tree per page while the default locale stays clean and unprefixed."
+      },
+      {
+        "title": "Search-engine ready",
+        "description": "Per-page canonical links, hreflang alternates with x-default, Open Graph, Twitter cards, and JSON-LD structured data."
+      },
+      {
+        "title": "Message catalogs",
+        "description": "Typed JSON namespaces with English fallback, loadable per route so non-default locales stay out of the main bundle."
+      },
+      {
+        "title": "Blog content collection",
+        "description": "MDX posts validated by Zod, compiled at build time, with locale-aware slugs and related-post links."
+      }
+    ]
+  },
+  "steps": {
+    "title": "Get started in three steps",
+    "items": [
+      {
+        "title": "Configure",
+        "description": "Set your name, URL, and email in src/site.config.ts."
+      },
+      {
+        "title": "Write copy",
+        "description": "Edit the JSON catalogs in src/messages for each locale."
+      },
+      {
+        "title": "Publish",
+        "description": "Add MDX posts in content/blogs and run pnpm build."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "question": "How do I add a new language?",
+        "answer": "Create a folder in src/messages with the same JSON namespaces, then add the native label to NATIVE_LANGUAGE_LABELS. Routes and the sitemap pick it up automatically."
+      },
+      {
+        "question": "Why is English not prefixed?",
+        "answer": "The default locale uses clean URLs like /blog. Visiting /en/blog redirects there with a 301 so there is only one canonical URL per page."
+      },
+      {
+        "question": "How does a blog post get translated?",
+        "answer": "Name the file with a locale suffix, for example getting-started.zh.mdx next to getting-started.en.mdx. Both share a slug and are linked as hreflang alternates."
+      },
+      {
+        "question": "Where do I deploy?",
+        "answer": "The build targets Cloudflare Pages through Nitro. Update wrangler.toml and your site URL before deploying."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Start from a working baseline",
+    "description": "Fork the repository, keep the parts you need, and delete the rest. The landing page, blog, and locale plumbing are already in place.",
+    "primaryLabel": "Read the blog",
+    "secondaryLabel": "About this template"
+  }
+}

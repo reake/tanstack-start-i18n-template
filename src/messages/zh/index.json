@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "多语言 TanStack Start 模板",
+    "description": "基于 TanStack Start 的开源多语言模板：本地化路由、hreflang、JSON-LD、MDX 博客与响应式落地页。",
+    "keywords": "tanstack start, 多语言模板, i18n 站点, react ssr, seo 模板, mdx 博客"
+  },
+  "hero": {
+    "badge": "TanStack Start · 多语言 · SEO",
+    "title": "做多语言站点",
+    "highlight": "不必牺牲 SEO",
+    "description": "本地化路由、canonical、hreflang、结构化数据与现成的设计系统。克隆项目，改一个配置文件，然后开始写内容。",
+    "primaryCta": "阅读博客",
+    "secondaryCta": "了解这个模板"
+  },
+  "highlights": {
+    "items": [
+      {
+        "title": "两种语言，一套路由",
+        "description": "英文不带前缀，/zh 带前缀。"
+      },
+      {
+        "title": "SEO 已接好",
+        "description": "canonical、hreflang、OG、JSON-LD。"
+      },
+      {
+        "title": "MDX 博客",
+        "description": "写文章即得本地化页面。"
+      }
+    ]
+  },
+  "features": {
+    "title": "模板包含什么",
+    "description": "在写第一行业务代码之前，内容站点需要的基础设施都已就绪。",
+    "items": [
+      {
+        "title": "感知语言的路由",
+        "description": "可选的 locale 片段让每种语言共用同一套路由树，同时默认语言的 URL 保持干净、无前缀。"
+      },
+      {
+        "title": "为搜索引擎准备",
+        "description": "每个页面都有 canonical、带 x-default 的 hreflang、Open Graph、Twitter 卡片与 JSON-LD 结构化数据。"
+      },
+      {
+        "title": "消息文件",
+        "description": "带类型的 JSON 命名空间，以英文兜底，并按路由懒加载，非默认语言不会进入首屏包。"
+      },
+      {
+        "title": "博客内容集合",
+        "description": "使用 Zod 校验的 MDX 文章，构建期编译，支持多语言 slug 与相关文章推荐。"
+      }
+    ]
+  },
+  "steps": {
+    "title": "三步开始",
+    "items": [
+      {
+        "title": "配置",
+        "description": "在 src/site.config.ts 设置名称、域名与邮箱。"
+      },
+      {
+        "title": "写文案",
+        "description": "编辑 src/messages 中各语言的 JSON 文件。"
+      },
+      {
+        "title": "发布",
+        "description": "在 content/blogs 添加 MDX 文章并运行 pnpm build。"
+      }
+    ]
+  },
+  "faq": {
+    "title": "常见问题",
+    "items": [
+      {
+        "question": "如何新增一门语言？",
+        "answer": "在 src/messages 下新建对应语言的目录，放入相同的 JSON 命名空间，并把本地名称加入 NATIVE_LANGUAGE_LABELS。路由与 sitemap 会自动识别。"
+      },
+      {
+        "question": "为什么英文没有前缀？",
+        "answer": "默认语言使用干净 URL，例如 /blog。访问 /en/blog 会以 301 跳转过去，保证每个页面只有一个 canonical 地址。"
+      },
+      {
+        "question": "博客文章如何翻译？",
+        "answer": "用语言后缀命名文件，例如把 getting-started.zh.mdx 与 getting-started.en.mdx 放在一起。两者共享同一 slug，并互为 hreflang。"
+      },
+      {
+        "question": "部署到哪里？",
+        "answer": "构建默认通过 Nitro 输出 Cloudflare Pages 产物。部署前请更新 wrangler.toml 和站点 URL。"
+      }
+    ]
+  },
+  "cta": {
+    "title": "从可运行的基线开始",
+    "description": "Fork 仓库，留下需要的部分，删掉其余内容。落地页、博客与多语言基础设施都已就位。",
+    "primaryLabel": "阅读博客",
+    "secondaryLabel": "了解这个模板"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "About this template",
+    "description": "What the TanStack Start i18n template includes, which parts are opinionated, and how to adapt it to your own product.",
+    "keywords": "tanstack start template, multilingual starter, i18n architecture"
+  },
+  "hero": {
+    "title": "About this template",
+    "description": "A small, readable baseline for multilingual content sites built on TanStack Start."
+  },
+  "sections": [
+    {
+      "title": "Why it exists",
+      "body": "Most starters either skip internationalization or bolt it on after the routing and SEO work is done. This template puts locale handling, metadata, and content authoring in place first, so the parts that are painful to retrofit are already correct."
+    },
+    {
+      "title": "How routing works",
+      "body": "A single optional locale segment wraps the route tree. The default locale stays unprefixed, so the canonical URL is /blog rather than /en/blog. Visiting a prefixed default-locale URL returns a 301 to the clean form."
+    },
+    {
+      "title": "How content works",
+      "body": "Interface copy lives in typed JSON namespaces under src/messages, merged over the English fallback and lazy-loaded per locale. Blog posts live in content/blogs as MDX, validated with Zod and compiled into static HTML at build time."
+    },
+    {
+      "title": "What is intentionally left out",
+      "body": "There is no authentication, database, API layer, or analytics. Those choices depend on your product, and a template that guesses wrong costs more to remove than to add."
+    }
+  ],
+  "highlights": {
+    "title": "Included in the box",
+    "items": [
+      "Localized routing with an unprefixed default locale",
+      "Per-page canonical, hreflang, Open Graph, and JSON-LD",
+      "Generated sitemap with alternate language links",
+      "MDX blog collection with locale-aware slugs",
+      "Light and dark themes with no flash on first paint",
+      "Responsive layout and accessible navigation"
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Questions, bug reports, or ideas? Email {email}."
+  }
+}

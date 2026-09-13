@@ -1,0 +1,38 @@
+---
+title: "语言路由与 SEO 是怎么做的"
+description: "为什么默认语言不带前缀、hreflang 如何生成，以及 sitemap 里包含什么。"
+date: "2026-01-20"
+updated: "2026-01-20"
+tags: ["seo", "多语言", "路由"]
+author: "Template"
+cover: "/og-image.png"
+---
+
+# 语言路由与 SEO
+
+国际化很容易事后补上，但要让搜索引擎正确理解却不容易。以下是这个模板做出的
+几个决定。
+
+## 一套路由树，一个可选的语言片段
+
+路由位于 `src/routes/{-$locale}`。花括号让该片段变为可选，因此 `/blog` 与
+`/zh/blog` 会命中同一个文件。
+
+默认语言永远不带前缀。访问 `/en/blog` 会以 `301` 跳转到 `/blog`，保证每个页面
+只有一个 canonical 地址，而不是两个。
+
+## 语言互链是自动生成的
+
+`__root.tsx` 会为当前页面渲染 `<link rel="alternate" hreflang="..." />`，并把
+`x-default` 指向默认语言。博客文章是特例：只会列出真正存在翻译文件的语言，
+不会声明并不存在的翻译版本。
+
+## Sitemap 来自同一份数据
+
+`scripts/generate-sitemap.mjs` 会扫描路由文件与 MDX front matter，然后为每种语言
+写出互链。可以运行 `pnpm sitemap:generate`，或直接运行 `pnpm build`。
+
+## 结构化数据
+
+首页输出 `WebSite` JSON-LD，博客列表输出 `CollectionPage` 与 `ItemList`，每篇文章
+输出 `BlogPosting` 与 `BreadcrumbList`。落地页的 FAQ 区块输出 `FAQPage`。

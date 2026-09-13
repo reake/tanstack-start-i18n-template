@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "关于这个模板",
+    "description": "多语言 TanStack Start 模板包含哪些内容、哪些是刻意做出的取舍，以及如何改造成你自己的产品。",
+    "keywords": "tanstack start 模板, 多语言脚手架, i18n 架构"
+  },
+  "hero": {
+    "title": "关于这个模板",
+    "description": "一个基于 TanStack Start、简洁易读的多语言内容站点基线。"
+  },
+  "sections": [
+    {
+      "title": "为什么需要它",
+      "body": "多数脚手架要么忽略国际化，要么在路由与 SEO 完成之后才补上。这个模板先把语言处理、元数据与内容创作的基础打好，因为这些部分一旦定型就很难再改。"
+    },
+    {
+      "title": "路由如何工作",
+      "body": "整个路由树包在一个可选的 locale 片段之下。默认语言不带前缀，因此 canonical 地址是 /blog 而不是 /en/blog。访问带前缀的默认语言地址会以 301 跳转到干净形式。"
+    },
+    {
+      "title": "内容如何组织",
+      "body": "界面文案位于 src/messages 下带类型的 JSON 命名空间中，以英文兜底并按语言懒加载。博客文章放在 content/blogs，以 MDX 编写、Zod 校验，并在构建期编译为静态 HTML。"
+    },
+    {
+      "title": "刻意没有包含的部分",
+      "body": "模板不包含认证、数据库、API 层与分析统计。这些选择取决于具体产品，而猜错的技术选型，删除成本往往比添加成本更高。"
+    }
+  ],
+  "highlights": {
+    "title": "开箱即用",
+    "items": [
+      "本地化路由，默认语言无前缀",
+      "每页的 canonical、hreflang、Open Graph 与 JSON-LD",
+      "自动生成的 sitemap，含语言互链",
+      "MDX 博客集合，slug 感知语言",
+      "明暗主题，首屏无闪烁",
+      "响应式布局与无障碍导航"
+    ]
+  },
+  "contact": {
+    "title": "联系",
+    "description": "有问题、反馈或想法？请邮件联系 {email}。"
+  }
+}
