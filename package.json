@@ -32,7 +32,7 @@
     "@content-collections/mdx": "^0.2.2",
     "@content-collections/vite": "^0.2.8",
     "@tanstack/react-query": "^5.90.12",
-    "@tanstack/react-router": "^1.141.6",
+    "@tanstack/react-router": "^1.170.34",
     "@tanstack/react-router-ssr-query": "^1.141.6",
     "@tanstack/react-start": "^1.141.7",
     "@vitejs/plugin-react": "^5.1.2",
