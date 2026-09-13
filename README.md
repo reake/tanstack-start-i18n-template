@@ -1,14 +1,15 @@
 # TanStack Start i18n Template
 
 A production-minded multilingual starter for [TanStack Start](https://tanstack.com/start).
-It combines localized routing, SEO metadata, an MDX blog, and a small accessible
-design system with Cloudflare deployment presets.
+This is the open-source foundation used to build [SVGView.com](https://svgview.com),
+with localized routing, SEO metadata, an MDX blog, and a small accessible design system.
 
 ## Case study: [SVGView.com](https://svgview.com)
 
-[SVGView](https://svgview.com) is a real project built from this starter. It turns
-the template into a browser-based SVG toolkit for viewing, editing, optimizing, and
-converting assets, including SVG-to-PNG and SVG-to-React export flows.
+[SVGView](https://svgview.com) is the reference implementation for this repository.
+The same foundation was extended into a browser-based SVG toolkit for viewing,
+editing, optimizing, and converting assets, including SVG-to-PNG and SVG-to-React
+export flows.
 
 The implementation demonstrates how to extend the skeleton without changing its
 core conventions:
@@ -19,7 +20,8 @@ core conventions:
 - local-only browser processing, keeping SVG files on the user's device;
 - Cloudflare-ready builds for fast, low-maintenance delivery.
 
-Visit [svgview.com](https://svgview.com) to see the pattern in production.
+Use this repository as the reusable skeleton; visit [svgview.com](https://svgview.com)
+to see one product built on top of it.
 
 ## Included
 
@@ -127,21 +129,24 @@ src/components/           Layout, landing, blog, legal, and UI components
 
 ## Commands
 
-| Command                   | Purpose                                                 |
-| ------------------------- | ------------------------------------------------------- |
-| `pnpm dev`                | Start the Vite development server                       |
-| `pnpm build`              | Generate sitemap/robots and build for production        |
-| `pnpm test`               | Run Vitest                                              |
-| `pnpm check`              | Check formatting, lint, and TypeScript                  |
-| `pnpm sitemap:generate`   | Regenerate `public/sitemap.xml` and `public/robots.txt` |
-| `pnpm run deploy`         | Build and deploy to Cloudflare Pages                    |
-| `pnpm run deploy:pages`   | Explicit Pages deployment                               |
-| `pnpm run deploy:workers` | Build and deploy to Cloudflare Workers                  |
+| Command                 | Purpose                                                 |
+| ----------------------- | ------------------------------------------------------- |
+| `pnpm dev`              | Start the Vite development server                       |
+| `pnpm build`            | Generate sitemap/robots and build for production        |
+| `pnpm test`             | Run Vitest                                              |
+| `pnpm check`            | Check formatting, lint, and TypeScript                  |
+| `pnpm sitemap:generate` | Regenerate `public/sitemap.xml` and `public/robots.txt` |
 
 ## Deployment
 
 Cloudflare Pages is the default target. Authenticate once, set the project name, and
 deploy:
+
+| Command                   | Purpose                                |
+| ------------------------- | -------------------------------------- |
+| `pnpm run deploy`         | Build and deploy to Cloudflare Pages   |
+| `pnpm run deploy:pages`   | Explicit Pages deployment              |
+| `pnpm run deploy:workers` | Build and deploy to Cloudflare Workers |
 
 ```bash
 pnpm exec wrangler login
@@ -160,4 +165,6 @@ After deployment, submit `/sitemap.xml` to Search Console and verify canonical,
 Authentication, databases, APIs, analytics, and CMS integrations are intentionally
 left out so each product can choose the right architecture. See
 [`CONTRIBUTING.md`](./CONTRIBUTING.md) and [`SECURITY.md`](./SECURITY.md) for project
-workflows. This template is released under the [Unlicense](./LICENSE).
+workflows. This template is released under the [MIT License](./LICENSE). You may use,
+modify, and redistribute it, including in commercial projects, under the terms in
+[`LICENSE`](./LICENSE).
