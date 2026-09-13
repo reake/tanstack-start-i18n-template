@@ -1,208 +1,163 @@
 # TanStack Start i18n Template
 
-An open-source multilingual starter built on [TanStack Start](https://tanstack.com/start): localized routing, SEO metadata that search engines actually use, an MDX blog, and a light/dark design system.
+A production-minded multilingual starter for [TanStack Start](https://tanstack.com/start).
+It combines localized routing, SEO metadata, an MDX blog, and a small accessible
+design system with Cloudflare deployment presets.
 
-It ships with a landing page, an about page, and a blog so the wiring is visible end to end — then you delete what you do not need.
+## Case study: [SVGView.com](https://svgview.com)
 
-## What is included
+[SVGView](https://svgview.com) is a real project built from this starter. It turns
+the template into a browser-based SVG toolkit for viewing, editing, optimizing, and
+converting assets, including SVG-to-PNG and SVG-to-React export flows.
 
-- **Locale-prefixed routing** — English is the default and stays unprefixed (`/blog`), Chinese lives under `/zh/blog`. `/en/blog` 301-redirects to `/blog`, so every page has exactly one canonical URL.
-- **SEO out of the box** — per-page `canonical`, `hreflang` alternates with `x-default`, Open Graph, Twitter cards, and JSON-LD (`WebSite`, `CollectionPage`, `ItemList`, `BlogPosting`, `BreadcrumbList`, `FAQPage`).
-- **Generated sitemap and robots.txt** — built from the route files and the MDX front matter, including alternate-language links.
-- **Typed message catalogs** — JSON namespaces with English fallback, lazily loaded per locale so non-default languages stay out of the initial bundle.
-- **MDX blog** — posts validated with Zod, compiled to static HTML at build time, with locale-aware slugs and related-post links.
-- **Design system** — Tailwind CSS v4 tokens, light/dark themes with no flash on first paint, accessible navigation, responsive layout.
-- **Server rendering** — TanStack Start SSR on a Cloudflare Pages preset via Nitro.
+The implementation demonstrates how to extend the skeleton without changing its
+core conventions:
+
+- localized routes and language-aware links for a global audience;
+- SEO-ready tool pages, canonical URLs, `hreflang`, JSON-LD, sitemap, and robots.txt;
+- reusable landing-page and content components for viewer, optimizer, and converter flows;
+- local-only browser processing, keeping SVG files on the user's device;
+- Cloudflare-ready builds for fast, low-maintenance delivery.
+
+Visit [svgview.com](https://svgview.com) to see the pattern in production.
+
+## Included
+
+- **Canonical i18n routing** — English is unprefixed (`/blog`), while Chinese uses
+  `/zh/blog`; `/en/*` redirects to the default locale.
+- **SEO by default** — canonical links, localized `hreflang` with `x-default`, Open
+  Graph/Twitter cards, and JSON-LD helpers.
+- **Typed, lazy messages** — JSON catalogs with English fallback and per-locale loading.
+- **MDX content** — Zod-validated front matter, static compilation, localized slugs,
+  related posts, and translated article links.
+- **Accessible UI** — Tailwind CSS v4 tokens, light/dark themes, responsive layout,
+  keyboard-friendly navigation, and shadcn-style primitives.
+- **Cloudflare targets** — one build workflow for Pages or Workers.
 
 ## Requirements
 
-- Node.js 20 or newer
-- pnpm 10.10.0 (Corepack is recommended; pnpm 9+ is supported by the package metadata)
+- Node.js 20+
+- pnpm 10.10.0 (Corepack recommended; pnpm 9+ is supported)
 
 ## Quick start
 
 ```bash
 corepack enable
 pnpm install
-pnpm dev          # http://localhost:3000
+pnpm dev                 # http://localhost:3000
 ```
 
-No environment variables are required.
+Local development does not require environment variables.
 
-## Project structure
+## Configure the site
 
-```text
-content/blogs/            MDX posts, one file per locale (post.en.mdx, post.zh.mdx)
-public/                   Static assets, robots.txt, generated sitemap.xml
-scripts/
-  blog-data-generator.mjs Internal Vite plugin step for src/generated/
-  generate-sitemap.mjs    Writes public/sitemap.xml and public/robots.txt
-src/
-  site.config.ts          Site name, URL, email, logo, OG image
-  lib/i18n.ts             Locale detection, message loading, path helpers
-  lib/seo.ts              Meta tags and JSON-LD builders
-  lib/blog.ts             Blog queries with locale fallback
-  messages/<locale>/      JSON message catalogs
-  routes/
-    __root.tsx            Document shell, hreflang alternates, 404 handling
-    {-$locale}/           The optional locale segment wraps the route tree
-      index.tsx           Landing page
-      (pages)/about.tsx   About page
-      (pages)/blog/       Blog index and post pages
-  components/             Layout, landing sections, blog pages, UI primitives
-```
-
-## 1. Configure the site
-
-Edit `src/site.config.ts`:
+Update [`src/site.config.ts`](./src/site.config.ts) before deploying:
 
 ```ts
 export const siteConfig = {
   name: "Your Product",
-  url: "https://your-domain.com", // canonical URLs, OG, JSON-LD, sitemap
+  url: "https://your-domain.com",
   email: "hello@your-domain.com",
-  // ...
-};
+  // description, logo, and ogImage
+} as const;
 ```
 
-`scripts/generate-sitemap.mjs` reads `url` from this file, so the sitemap and `robots.txt` stay in sync. Override it with `--base-url=` or `SITE_URL` if you generate the sitemap in CI with a different domain.
+The same `url` drives canonical URLs, JSON-LD, the sitemap, and `robots.txt`. Replace
+the placeholder assets in `public/` (`logo.png`, `og-image.png`, and `favicon.ico`).
 
-Also replace the placeholder brand assets: `public/logo.png`, `public/og-image.png`, and `public/favicon.ico`.
-
-## 2. Add or remove a language
+## Internationalization
 
 Locales are discovered from `src/messages/*/common.json`.
 
-To add a language:
+1. Copy `src/messages/en/` to `src/messages/<locale>/` and translate the values.
+2. Add the native label to `NATIVE_LANGUAGE_LABELS` in [`src/lib/i18n.ts`](./src/lib/i18n.ts).
+3. Add the Open Graph locale to `OG_LOCALE_BY_LOCALE` in [`src/lib/seo.ts`](./src/lib/seo.ts).
 
-1. Copy `src/messages/en` to `src/messages/<locale>` and translate the values.
-2. Add the native name to `NATIVE_LANGUAGE_LABELS` in `src/lib/i18n.ts` (shown in the language switcher).
-3. Add the matching Open Graph locale to `OG_LOCALE_BY_LOCALE` in `src/lib/seo.ts`.
+Routes, language switchers, `hreflang`, and the sitemap update automatically. Keep the
+default locale (`en`) unprefixed and use `withLocalePath` for generated links.
 
-Routes, hreflang alternates, and the sitemap pick the new locale up automatically.
+| URL        | Meaning                  |
+| ---------- | ------------------------ |
+| `/blog`    | English (default locale) |
+| `/zh/blog` | Chinese                  |
+| `/en/blog` | Redirects to `/blog`     |
+| `/unknown` | 404 with `noindex`       |
 
-To remove one, delete the folder and the two map entries.
+Every user-visible string belongs in `src/messages`. Add a namespace to
+`MESSAGE_NAMESPACES` before adding its JSON catalog.
 
-### How routing stays canonical
+## Blog content
 
-| URL        | Result                               |
-| ---------- | ------------------------------------ |
-| `/blog`    | English (default locale, unprefixed) |
-| `/zh/blog` | Chinese                              |
-| `/en/blog` | `301` to `/blog`                     |
-| `/unknown` | `404` with `noindex`                 |
-
-Interface copy lives in `src/messages`. Add a namespace to `MESSAGE_NAMESPACES` in `src/lib/i18n.ts` and create one JSON file per locale.
-
-## 3. Write blog posts
-
-Create an MDX file in `content/blogs` with a locale suffix:
+Create translated posts next to each other in `content/blogs/`:
 
 ```text
-content/blogs/getting-started.en.mdx
-content/blogs/getting-started.zh.mdx
+getting-started.en.mdx
+getting-started.zh.mdx
 ```
 
-Both files share the slug `getting-started`, so they become translations of one article and link to each other with `hreflang`. A post without a suffix is treated as English.
+Both files share the `getting-started` slug and are linked as language alternates.
+Front matter supports `title`, `description`, `date`, optional `updated`, `tags`,
+`author`, and `cover`.
 
 ```mdx
 ---
 title: "Getting started"
-description: "A short summary used for meta description and cards."
+description: "A short summary for search and social cards."
 date: "2026-01-12"
-updated: "2026-01-20" # optional, used for article:modified_time and lastmod
-tags: ["setup", "i18n"] # optional, drives related posts
-author: "Your Name" # optional
-cover: "/og-image.png" # optional, used as og:image
+tags: ["setup", "i18n"]
 ---
-
-# Body
-
-Write markdown here. Internal links are rewritten with the correct locale prefix.
 ```
 
-Upload the post's cover image to `public/blog/` and reference it as `/blog/<file>.png`.
+Blog files are trusted repository content: the build compiles MDX and renders its HTML
+directly. Do not connect this pipeline to user-submitted content without adding a
+sanitizer and an allowlisted component set.
 
-### Content trust boundary
+## Project structure
 
-Files under `content/blogs/` are trusted source code. The build compiles MDX with
-`new Function` and the post renderer uses the resulting HTML directly, so this
-pipeline is intentionally for repository-owned content only. Do not connect it to
-user-submitted or CMS content without replacing the compiler boundary and adding a
-sanitizer plus an allowlisted component set.
+```text
+content/blogs/            MDX posts, one file per locale
+public/                   Static assets and generated sitemap/robots files
+scripts/                  Blog generation, sitemap generation, deployment
+src/site.config.ts        Site identity and canonical URL
+src/lib/                  i18n, SEO, blog, and request helpers
+src/messages/<locale>/    JSON message catalogs
+src/routes/               TanStack Start file-based routes
+src/components/           Layout, landing, blog, legal, and UI components
+```
 
-## Scripts
+## Commands
 
-| Command                             | Description                                                        |
-| ----------------------------------- | ------------------------------------------------------------------ |
-| `pnpm dev`                          | Dev server on port 3000                                            |
-| `pnpm build`                        | Generate `sitemap.xml` and `robots.txt`, then build for production |
-| `pnpm run deploy`                   | Build and deploy to Cloudflare Pages (default)                     |
-| `pnpm run deploy:pages`             | Build and deploy to Cloudflare Pages                               |
-| `pnpm run deploy:workers`           | Build and deploy to Cloudflare Workers                             |
-| `pnpm sitemap:generate`             | Regenerate the sitemap and robots.txt                              |
-| `pnpm test`                         | Vitest                                                             |
-| `pnpm lint` / `pnpm check-types`    | ESLint / TypeScript                                                |
-| `pnpm format` / `pnpm format:check` | Write / verify Prettier formatting                                 |
-| `pnpm check`                        | Verify formatting, lint, and type-check (read-only)                |
+| Command                   | Purpose                                                 |
+| ------------------------- | ------------------------------------------------------- |
+| `pnpm dev`                | Start the Vite development server                       |
+| `pnpm build`              | Generate sitemap/robots and build for production        |
+| `pnpm test`               | Run Vitest                                              |
+| `pnpm check`              | Check formatting, lint, and TypeScript                  |
+| `pnpm sitemap:generate`   | Regenerate `public/sitemap.xml` and `public/robots.txt` |
+| `pnpm run deploy`         | Build and deploy to Cloudflare Pages                    |
+| `pnpm run deploy:pages`   | Explicit Pages deployment                               |
+| `pnpm run deploy:workers` | Build and deploy to Cloudflare Workers                  |
 
 ## Deployment
 
-The default deployment target is Cloudflare Pages. Authenticate with Wrangler
-once, then set the Pages project name and deploy:
+Cloudflare Pages is the default target. Authenticate once, set the project name, and
+deploy:
 
 ```bash
 pnpm exec wrangler login
 CF_PAGES_PROJECT_NAME=your-project pnpm run deploy
 ```
 
-You can also set `CF_PAGES_PROJECT_NAME` in your shell or CI environment. Security
-headers live in `public/_headers`.
+For Workers, run `pnpm run deploy:workers`. The Pages build outputs to `dist/`; the
+Workers build outputs to `.output/`. Do not deploy one target with the other target's
+Wrangler command. Deployment variables are documented in [`.env.example`](./.env.example).
 
-The non-secret deployment variables are listed in [`.env.example`](./.env.example).
-The deploy script reads them from the process environment; copy the values into
-your shell or CI provider rather than committing a local `.env` file.
+After deployment, submit `/sitemap.xml` to Search Console and verify canonical,
+`hreflang`, and JSON-LD output on a localized page.
 
-To deploy the same app as a Cloudflare Worker, use the dedicated Workers preset and
-configuration:
+## Scope and license
 
-```bash
-pnpm run deploy:workers
-```
-
-`pnpm run deploy` accepts `pages` or `workers` as its first argument, and defaults
-to Pages. The equivalent environment-variable form is
-`CF_DEPLOY_TARGET=workers pnpm run deploy`. Worker settings live in
-`wrangler.workers.toml`; Pages settings live in `wrangler.toml` and the Pages
-project dashboard.
-
-The two targets intentionally use different Nitro presets and output directories:
-Pages uses `dist/` with `cloudflare-pages`, while Workers uses `.output/` with
-`cloudflare-module`. Do not deploy a Pages build with `wrangler deploy` or a Worker
-build with `wrangler pages deploy`.
-
-Nitro is pinned to a tested nightly release because the Cloudflare Pages adapter is
-currently consumed from that channel. Upgrade it only together with a lockfile
-update and a full `pnpm check`, `pnpm test`, and `pnpm build` verification.
-
-## After you deploy
-
-1. Set the real domain in `src/site.config.ts` and run `pnpm build`.
-2. Submit `https://your-domain.com/sitemap.xml` in Google Search Console.
-3. Check a page in the [Rich Results Test](https://search.google.com/test/rich-results) to confirm the JSON-LD parses.
-4. Confirm `view-source:` shows `canonical`, `hreflang`, and `x-default` for a non-default locale, for example `/zh`.
-
-## What is intentionally left out
-
-Authentication, database, API layer, analytics, and a CMS. Those choices depend on the product being built, and a wrong guess costs more to remove than to add.
-
-## Contributing and security
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the local workflow and [SECURITY.md](./SECURITY.md)
-for private vulnerability reporting. The repository stays `private: true` in
-`package.json` so cloning the template cannot accidentally publish it to npm; the
-source itself is released under the Unlicense.
-
-## License
-
-Unlicense / public domain. See [LICENSE](./LICENSE).
+Authentication, databases, APIs, analytics, and CMS integrations are intentionally
+left out so each product can choose the right architecture. See
+[`CONTRIBUTING.md`](./CONTRIBUTING.md) and [`SECURITY.md`](./SECURITY.md) for project
+workflows. This template is released under the [Unlicense](./LICENSE).
