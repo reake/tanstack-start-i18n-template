@@ -77,6 +77,9 @@ pnpm dev                 # http://localhost:3000
 
 Local development does not require environment variables.
 
+`.env.example` documents optional deployment variables. The deploy scripts do not
+load `.env` automatically, so export these values in your shell or CI.
+
 ## Configure the site
 
 Update [`src/site.config.ts`](./src/site.config.ts) before deploying:
