@@ -1,88 +1,41 @@
-# TanStack Start i18n Template
+# TanStack Start i18n SEO Template
 
-A production-ready multilingual starter for building SEO-friendly tool websites with
-[TanStack Start](https://tanstack.com/start).
-
-🚀 **Used in production:** [SVGView.com](https://svgview.com)
-
-## Preview
-
-[![SVGView — a multilingual SVG toolkit powered by this starter](https://svgview.com/og-image.png)](https://svgview.com)
-
-This template powers [SVGView.com](https://svgview.com), a multilingual SVG toolkit
-serving users worldwide. Open the [live demo](https://svgview.com) to see the routing,
-SEO pages, and content architecture in production.
+A production-ready starter for building multilingual,
+SEO-friendly websites with TanStack Start.
 
 ## Why this template?
 
-Most TanStack Start examples focus on framework features. This starter focuses on
-shipping real-world, content-driven websites where internationalization and organic
-search are part of the architecture from day one:
-
-- 🌍 Multi-language routing
-- 🔎 SEO-friendly localized URLs
-- 📄 Markdown content system
-- 🗺️ Automatic sitemap and robots.txt generation
-- 🏗️ Production-ready project structure
-- ⚡ Optimized for content-driven tools and utility websites
+Most TanStack Start examples demonstrate framework features. This starter is for
+content-driven websites where internationalization and organic search belong in the
+architecture from the beginning. It was extracted from a production website and
+keeps routing, content, metadata, and discovery files aligned.
 
 ## Features
 
 ### Internationalization
 
-- ✅ Multi-language routing with an optional `{-$locale}` segment
-- ✅ SEO-friendly localized pages
-- ✅ Automatic `hreflang` and `x-default` links
-- ✅ Accessible language switcher
+- Multi-language routing with an optional {-$locale} segment
+- Optional-locale routing: `/blog` for English and `/zh/blog` for Chinese
+- Lazy-loaded message catalogs with English fallback
+- Automatic language switcher, `hreflang`, and `x-default` links
 
-### Content system
+### Content and SEO
 
-- ✅ Markdown/MDX-based content
-- ✅ Zod-validated front matter
-- ✅ Localized blog pages and slugs
-- ✅ Related posts and translated article links
-
-### SEO
-
-- ✅ Metadata and Open Graph/Twitter card helpers
-- ✅ Canonical URLs
-- ✅ JSON-LD structured data
-- ✅ Generated `sitemap.xml` and `robots.txt`
+- Localized MDX posts with validated front matter and translated article links
+- Canonical URLs, Open Graph, Twitter cards, and JSON-LD helpers
+- Generated `sitemap.xml` and `robots.txt`
 
 ### Developer experience
 
-- ✅ TypeScript and type-safe routing
-- ✅ Clean, reusable architecture
-- ✅ Responsive accessible UI with Tailwind CSS
-- ✅ Cloudflare Pages and Workers build targets
-
-## Tech stack
-
-- [TanStack Start](https://tanstack.com/start)
-- [TanStack Router](https://tanstack.com/router)
-- React
-- TypeScript
-- Tailwind CSS
-- Vite
-- Markdown/MDX content
-- `{-$locale}` optional-locale routing
+- TypeScript, type-safe TanStack routing, React, and Tailwind CSS
+- Accessible reusable UI primitives
+- Cloudflare Pages and Workers deployment targets
 
 ## Production example
 
-This template is used by:
-
 ### [SVGView](https://svgview.com)
 
-SVGView is a browser-based SVG toolkit built on top of this repository.
-
-- SVG viewing, editing, optimizing, and conversion tools
-- Multi-language SEO pages
-- Content-led acquisition through localized articles and landing pages
-- Build-time content generation and Cloudflare delivery
-- Local-only browser processing for user files
-
-The production site is intentionally separate from this starter so the repository
-remains a focused, reusable foundation for tool and content websites.
+SVGView is a multilingual SVG toolkit built and deployed with this architecture.
 
 ## Project structure
 
@@ -112,11 +65,13 @@ locale-aware primitives.
 
 ## Quick start
 
-Requirements: Node.js 20+ and pnpm 10.10.0 (pnpm 9+ is supported).
+Requirements: Node.js 20+ and pnpm 10.10.0. The repository pins pnpm through
+`packageManager`; use Corepack so local and CI installs resolve the same version.
 
 ```bash
 corepack enable
-pnpm install
+corepack prepare pnpm@10.10.0 --activate
+pnpm install --frozen-lockfile
 pnpm dev                 # http://localhost:3000
 ```
 
@@ -136,7 +91,9 @@ export const siteConfig = {
 ```
 
 The `url` drives canonical URLs, JSON-LD, the sitemap, and `robots.txt`. Replace the
-placeholder assets in `public/` (`logo.png`, `og-image.png`, and `favicon.ico`).
+placeholder assets in `public/` (`logo.png`, `og-image.png`, and `favicon.ico`) and
+verify their licenses before redistributing them. See
+[`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) for the bundled fonts.
 
 ## Internationalization
 
@@ -204,8 +161,16 @@ pnpm exec wrangler login
 CF_PAGES_PROJECT_NAME=your-project pnpm run deploy
 ```
 
-Use `pnpm run deploy:pages` for Pages or `pnpm run deploy:workers` for Workers. The
-Pages build outputs to `dist/`; the Workers build outputs to `.output/`.
+`CF_PAGES_PROJECT_NAME` is required for a first Pages deployment unless the project
+name is already configured in your shell or CI. Use `pnpm run deploy:pages` for Pages
+or `pnpm run deploy:workers` for Workers. Workers deployments use
+[`wrangler.workers.toml`](./wrangler.workers.toml) and require a Worker already
+configured for the account. The Pages build outputs to `dist/`; the Workers build
+outputs to `.output/`.
+
+For a reproducible production check, run `pnpm check`, `pnpm test`, and `pnpm build`
+before deploying. `pnpm build` regenerates the sitemap, robots.txt, and typed blog
+modules, so do not hand-edit those generated files.
 
 After deployment, submit `/sitemap.xml` to Search Console and verify canonical,
 `hreflang`, and JSON-LD output on a localized page.

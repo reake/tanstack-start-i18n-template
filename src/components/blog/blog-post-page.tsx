@@ -81,6 +81,8 @@ export function BlogPostPage() {
 
       <main id="main-content" className="page-reveal container py-2 md:py-3">
         <article className="blog-content mx-auto max-w-3xl">
+          {/* post.html is generated from trusted repository MDX at build time. */}
+          {/* eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml */}
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </article>
 
