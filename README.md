@@ -1,5 +1,7 @@
 # TanStack Start i18n SEO Template
 
+[中文说明](./README.zh-CN.md) · English
+
 A production-ready starter for building multilingual,
 SEO-friendly websites with TanStack Start.
 
@@ -79,6 +81,11 @@ Local development does not require environment variables.
 
 `.env.example` documents optional deployment variables. The deploy scripts do not
 load `.env` automatically, so export these values in your shell or CI.
+
+> Toolchain note: this template currently tracks the TanStack Start-compatible Vite
+> beta and a pinned Nitro nightly build. Verify the lockfile and run the full check
+> suite before upgrading either dependency; move to stable releases when the
+> TanStack Start compatibility window allows it.
 
 ## Configure the site
 
