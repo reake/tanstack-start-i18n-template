@@ -17,6 +17,11 @@
       "~/*": ["./src/*"]
     },
     "noEmit": true,
-    "strictNullChecks": true
+    "resolvePackageJsonImports": true,
+    "allowImportingTsExtensions": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "types": ["node", "vite/client"]
   }
 }

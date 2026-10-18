@@ -67,12 +67,12 @@ locale-aware primitives.
 
 ## Quick start
 
-Requirements: Node.js 20+ and pnpm 10.10.0. The repository pins pnpm through
+Requirements: Node.js 22.12+ and pnpm 10.20.0. The repository pins pnpm through
 `packageManager`; use Corepack so local and CI installs resolve the same version.
 
 ```bash
 corepack enable
-corepack prepare pnpm@10.10.0 --activate
+corepack prepare pnpm@10.20.0 --activate
 pnpm install --frozen-lockfile
 pnpm dev                 # http://localhost:3000
 ```
@@ -82,10 +82,9 @@ Local development does not require environment variables.
 `.env.example` documents optional deployment variables. The deploy scripts do not
 load `.env` automatically, so export these values in your shell or CI.
 
-> Toolchain note: this template currently tracks the TanStack Start-compatible Vite
-> beta and a pinned Nitro nightly build. Verify the lockfile and run the full check
-> suite before upgrading either dependency; move to stable releases when the
-> TanStack Start compatibility window allows it.
+> Toolchain note: the TanStack Start-compatible toolchain currently uses Vite 8 beta
+> and a pinned Nitro 3 beta. Keep their versions aligned with the lockfile and run the
+> full check suite when upgrading them.
 
 ## Configure the site
 

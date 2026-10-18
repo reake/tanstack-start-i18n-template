@@ -64,7 +64,9 @@ function getAlternateLocalesForPath(basePath: string) {
   const blogPostMatch = basePath.match(/^\/blog\/([^/?#]+)$/);
 
   if (blogPostMatch) {
-    const locales = getBlogTranslationLocales(decodeURIComponent(blogPostMatch[1]));
+    const slug = blogPostMatch[1];
+    if (!slug) return SUPPORTED_LOCALES;
+    const locales = getBlogTranslationLocales(decodeURIComponent(slug));
     if (locales.length) return locales;
   }
 
@@ -73,11 +75,12 @@ function getAlternateLocalesForPath(basePath: string) {
 
 function RootDocument({ children }: { readonly children: React.ReactNode }) {
   const { pathname } = useLocation();
-  const statusCode = useRouterState({ select: (state) => state.statusCode });
+  const isNotFound = useRouterState({
+    select: (state) => state.matches.some((match) => match.status === "notFound"),
+  });
   const locale = getLocaleFromPath(pathname);
   const basePath = stripLocaleFromPath(pathname);
-  const shouldExposeSeoLinks =
-    statusCode !== 404 && !isInternalRouteTemplatePath(pathname);
+  const shouldExposeSeoLinks = !isNotFound && !isInternalRouteTemplatePath(pathname);
   const alternateLocales = shouldExposeSeoLinks
     ? getAlternateLocalesForPath(basePath)
     : [];

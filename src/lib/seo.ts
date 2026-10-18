@@ -65,7 +65,8 @@ export function absoluteUrl(path: string): string {
 
 function getOpenGraphLocale(path: string): string {
   const localePrefix = path.split("/")[1]?.toLowerCase();
-  return OG_LOCALE_BY_LOCALE[localePrefix] ?? OG_LOCALE_BY_LOCALE.en;
+  const mapped = localePrefix ? OG_LOCALE_BY_LOCALE[localePrefix] : undefined;
+  return mapped ?? "en_US";
 }
 
 /** Meta tags for a page: description, canonical-aware Open Graph, Twitter card. */

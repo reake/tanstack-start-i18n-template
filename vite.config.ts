@@ -30,7 +30,7 @@ function blogDataPlugin() {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   resolve: {
     tsconfigPaths: true,
     dedupe: ["react", "react-dom"],
@@ -40,23 +40,29 @@ export default defineConfig({
     blogDataPlugin(),
     tanstackStart(),
     // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
-    nitro({
-      preset: deployTarget === "workers" ? "cloudflare-module" : "cloudflare-pages",
-      routeRules: {
-        "/**": { headers: ssrSecurityHeaders },
-      },
-      ...(deployTarget === "pages" && {
-        cloudflare: {
-          pages: {
-            routes: { exclude: ["/assets/*", "/fonts/*"] },
-          },
-        },
-      }),
-    }),
+    // Cloudflare presets are required for production output, but their local
+    // worker emulator bypasses TanStack Start's Vite dev request handler.
+    nitro(
+      command === "build"
+        ? {
+            preset: deployTarget === "workers" ? "cloudflare-module" : "cloudflare-pages",
+            routeRules: {
+              "/**": { headers: ssrSecurityHeaders },
+            },
+            ...(deployTarget === "pages" && {
+              cloudflare: {
+                pages: {
+                  routes: { exclude: ["/assets/*", "/fonts/*"] },
+                },
+              },
+            }),
+          }
+        : undefined,
+    ),
     viteReact({
       // https://react.dev/learn/react-compiler
-      babel: { plugins: [["babel-plugin-react-compiler", { target: "19" }]] },
+      compiler: true,
     }),
     tailwindcss(),
   ],
-});
+}));

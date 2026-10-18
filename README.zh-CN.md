@@ -47,18 +47,18 @@ src/router.tsx          Router 配置
 
 ## 快速开始
 
-要求：Node.js 20+、pnpm 10.10.0。仓库通过 `packageManager` 固定 pnpm 版本，建议使用 Corepack：
+要求：Node.js 22.12+、pnpm 10.20.0。仓库通过 `packageManager` 固定 pnpm 版本，建议使用 Corepack：
 
 ```bash
 corepack enable
-corepack prepare pnpm@10.10.0 --activate
+corepack prepare pnpm@10.20.0 --activate
 pnpm install --frozen-lockfile
 pnpm dev                 # http://localhost:3000
 ```
 
 本地开发不需要环境变量。`.env.example` 只记录可选的部署和 sitemap 配置；部署脚本不会自动加载 `.env`，请在 shell 或 CI 中导出需要的变量。
 
-> 工具链提示：当前模板使用与 TanStack Start 兼容的 Vite beta 版本，以及固定的 Nitro nightly 构建。升级任一依赖前，请先确认 lockfile 并运行完整检查；待 TanStack Start 的兼容窗口允许后，再迁移到稳定版本。
+> 工具链提示：当前模板使用与 TanStack Start 兼容的 Vite 8 beta 和固定的 Nitro 3 beta。升级这两个依赖前，请保持版本与 lockfile 一致并运行完整检查。
 
 ## 配置站点
 

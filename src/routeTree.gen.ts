@@ -51,7 +51,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/{-$locale}/about': typeof Char123LocaleChar125pagesAboutRoute
   '/{-$locale}/blog/$slug': typeof Char123LocaleChar125pagesBlogSlugRoute
-  '/{-$locale}/blog': typeof Char123LocaleChar125pagesBlogIndexRoute
+  '/{-$locale}/blog/': typeof Char123LocaleChar125pagesBlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute
@@ -74,7 +74,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/'
     | '/{-$locale}/about'
     | '/{-$locale}/blog/$slug'
-    | '/{-$locale}/blog'
+    | '/{-$locale}/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/{-$locale}'
@@ -120,7 +120,7 @@ declare module '@tanstack/react-router' {
     '/{-$locale}/(pages)/blog/': {
       id: '/{-$locale}/(pages)/blog/'
       path: '/blog'
-      fullPath: '/{-$locale}/blog'
+      fullPath: '/{-$locale}/blog/'
       preLoaderRoute: typeof Char123LocaleChar125pagesBlogIndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
