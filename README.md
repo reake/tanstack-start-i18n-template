@@ -2,8 +2,31 @@
 
 [中文说明](./README.zh-CN.md) · English
 
-A production-ready starter for building multilingual,
-SEO-friendly websites with TanStack Start.
+A TanStack Start starter for multilingual websites and search-friendly content.
+
+In five minutes, you can verify:
+
+1. Run `pnpm dev` and visit `/blog` and `/zh/blog`: the locale segment is optional and English is unprefixed.
+2. View the page source to inspect generated `hreflang`, `x-default`, and canonical links.
+3. Configure the site, run `pnpm build`, and inspect the generated `public/sitemap.xml` and `public/robots.txt`.
+
+Before use: this template depends on Vite 8 beta and Nitro 3 beta. Their APIs and
+compatibility can change; upgrades may require code changes. Keep the lockfile and
+run the full checks when upgrading.
+
+## Suitable use
+
+### Suitable for
+
+- Multilingual content sites
+- Tool sites
+- Blogs with landing pages
+
+### Not suitable for
+
+- Pure SPA administration interfaces
+- Projects that do not need multiple languages
+- Teams that need a CMS editing workflow in the repository
 
 ## Why this template?
 
@@ -33,11 +56,12 @@ keeps routing, content, metadata, and discovery files aligned.
 - Accessible reusable UI primitives
 - Cloudflare Pages and Workers deployment targets
 
-## Production example
+## What this template solves in production
 
 ### [SVGView](https://svgview.com)
 
-SVGView is a multilingual SVG toolkit built and deployed with this architecture.
+[SVGView](https://svgview.com) uses this template to serve 11 languages, generate its
+sitemap automatically, and keep the default English URLs unprefixed.
 
 ## Project structure
 
@@ -82,10 +106,6 @@ Local development does not require environment variables.
 `.env.example` documents optional deployment variables. The deploy scripts do not
 load `.env` automatically, so export these values in your shell or CI.
 
-> Toolchain note: the TanStack Start-compatible toolchain currently uses Vite 8 beta
-> and a pinned Nitro 3 beta. Keep their versions aligned with the lockfile and run the
-> full check suite when upgrading them.
-
 ## Configure the site
 
 Update [`src/site.config.ts`](./src/site.config.ts) before deploying:
@@ -100,9 +120,26 @@ export const siteConfig = {
 ```
 
 The `url` drives canonical URLs, JSON-LD, the sitemap, and `robots.txt`. Replace the
-placeholder assets in `public/` (`logo.png`, `og-image.png`, and `favicon.ico`) and
-verify their licenses before redistributing them. See
-[`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) for the bundled fonts.
+placeholder assets in `public/` (`logo.png`, `og-image.png`, and `favicon.ico`).
+The strict `pnpm build` preflight checks for the `example.com` URL,
+`hello@example.com`, the original logo and Open Graph image hashes, and forbidden
+license-notice wording. It blocks the build until those fork-specific values are
+replaced. Review [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) before adding
+new third-party assets; the template's MIT license does not grant their rights.
+
+`pnpm preflight:skip` bypasses the preflight for a local debug build only. CI runs
+preflight in warning mode and cannot use the skip command; review its notices before
+deploying.
+
+## Fork checklist
+
+After forking, change these five areas before deploying:
+
+1. `src/site.config.ts`: `url`, `name`, and `email`
+2. `public/logo.png`
+3. `public/og-image.png`
+4. `src/messages/`: your language catalogs
+5. `content/blogs/`: your posts and translations
 
 ## Internationalization
 
@@ -189,6 +226,7 @@ After deployment, submit `/sitemap.xml` to Search Console and verify canonical,
 Issues and pull requests are welcome. See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for
 the local checks and pull request conventions. Repository-specific AI/development
 guidance is available in [`AGENTS.md`](./AGENTS.md) and [`CLAUDE.md`](./CLAUDE.md).
+We do not accept link-farm PRs with unrelated links or large promotional sections.
 
 ## License
 
@@ -198,3 +236,11 @@ and redistribute it, including in commercial projects, under the terms in `LICEN
 ## Author
 
 Created and maintained by [reake](https://x.com/reakecom).
+
+## Glossary
+
+| English         | 中文     |
+| --------------- | -------- |
+| locale          | 语言目录 |
+| message catalog | 语言包   |
+| canonical       | 规范网址 |

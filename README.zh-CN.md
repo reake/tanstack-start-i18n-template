@@ -4,6 +4,28 @@
 
 一个面向内容型网站的 TanStack Start 起步模板：从一开始就把多语言路由、SEO 元数据、MDX 内容和 Cloudflare 部署放进同一套架构。
 
+五分钟内可以验证：
+
+1. 运行 `pnpm dev`，访问 `/blog` 和 `/zh/blog`：语言目录是可选的，英文网址没有前缀。
+2. 查看页面源代码，检查自动生成的 `hreflang`、`x-default` 和 canonical 链接。
+3. 配置站点并运行 `pnpm build`，检查生成的 `public/sitemap.xml` 和 `public/robots.txt`。
+
+使用前请注意：模板依赖 Vite 8 beta 和 Nitro 3 beta。它们的 API 和兼容性可能发生变化，升级可能需要修改代码；请保留 lockfile 并在升级时运行完整检查。
+
+## 适用范围
+
+### 适合
+
+- 多语言内容站
+- 工具站
+- 博客与落地页
+
+### 不适合
+
+- 纯 SPA 管理后台
+- 不需要多语言的项目
+- 需要在仓库内提供 CMS 后台编辑的团队
+
 ## 为什么使用这个模板？
 
 多数 TanStack Start 示例主要展示框架能力；这个模板更适合需要自然搜索流量的多语言内容站点。路由、内容、元数据、语言互链以及 sitemap 使用同一套 locale-aware 原语，减少后期补国际化和 SEO 时的返工。
@@ -28,6 +50,10 @@
 - TypeScript、类型安全的 TanStack Router、React 和 Tailwind CSS
 - 可复用且可访问的 UI 基础组件
 - 支持 Cloudflare Pages 和 Workers 两种部署目标
+
+## 这个模板在生产里解决了什么问题
+
+[SVGView](https://svgview.com) 使用这个模板承载 11 种语言、自动生成 sitemap，并保持默认英文网址不带前缀。
 
 ## 项目结构
 
@@ -58,8 +84,6 @@ pnpm dev                 # http://localhost:3000
 
 本地开发不需要环境变量。`.env.example` 只记录可选的部署和 sitemap 配置；部署脚本不会自动加载 `.env`，请在 shell 或 CI 中导出需要的变量。
 
-> 工具链提示：当前模板使用与 TanStack Start 兼容的 Vite 8 beta 和固定的 Nitro 3 beta。升级这两个依赖前，请保持版本与 lockfile 一致并运行完整检查。
-
 ## 配置站点
 
 部署前先修改 [`src/site.config.ts`](./src/site.config.ts)：
@@ -73,7 +97,19 @@ export const siteConfig = {
 } as const;
 ```
 
-其中 `url` 会用于 canonical URL、JSON-LD、sitemap 和 `robots.txt`。同时替换 `public/` 中的 `logo.png`、`og-image.png` 和 `favicon.ico`，并确认这些资源的授权。仓库内置字体的授权信息见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
+其中 `url` 会用于 canonical URL、JSON-LD、sitemap 和 `robots.txt`。同时替换 `public/` 中的 `logo.png`、`og-image.png` 和 `favicon.ico`。`pnpm build` 的严格预检会检查 `example.com` 网址、`hello@example.com`、默认 logo 和 Open Graph 图片哈希，以及许可通知中的禁用措辞；命中时会阻止构建。内置字体授权见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)；模板的 MIT 许可证不授予第三方资源的使用权。
+
+`pnpm preflight:skip` 仅供本地调试构建时跳过预检。CI 以警告模式运行预检，不能使用跳过命令；部署前请检查提示。
+
+## Fork 后必须改的 5 个地方
+
+部署前请修改以下五项：
+
+1. `src/site.config.ts`：`url`、`name` 和 `email`
+2. `public/logo.png`
+3. `public/og-image.png`
+4. `src/messages/`：你的语言包
+5. `content/blogs/`：你的文章和翻译
 
 ## 新增语言
 
@@ -141,10 +177,24 @@ CF_PAGES_PROJECT_NAME=your-project pnpm run deploy
 
 发布前建议依次运行 `pnpm check`、`pnpm test` 和 `pnpm build`。构建会重新生成 sitemap、robots 和类型化博客模块，请不要手动编辑这些生成文件。部署后把 `/sitemap.xml` 提交到 Search Console，并检查本地化页面的 canonical、`hreflang` 和 JSON-LD。
 
-## 贡献与许可
+## 贡献
 
 提交前请阅读 [`CONTRIBUTING.md`](./CONTRIBUTING.md)。仓库的开发约定见 [`AGENTS.md`](./AGENTS.md)，AI/编辑器辅助约定见 [`CLAUDE.md`](./CLAUDE.md)。安全问题请按 [`SECURITY.md`](./SECURITY.md) 的私密披露流程处理。
 
+不接受包含大量营销内容或无关链接的外链农场 PR。
+
+## 许可
+
 本模板采用 [MIT License](./LICENSE)，可按许可证条款用于商业项目。示例项目为 [SVGView](https://svgview.com)。
 
-作者：[reake](https://x.com/reakecom)
+## 作者
+
+[reake](https://x.com/reakecom)
+
+## 术语表
+
+| English         | 中文     |
+| --------------- | -------- |
+| locale          | 语言目录 |
+| message catalog | 语言包   |
+| canonical       | 规范网址 |

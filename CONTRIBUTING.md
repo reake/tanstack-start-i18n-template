@@ -5,7 +5,7 @@ i18n, SEO, content, and Cloudflare deployment patterns.
 
 ## Local workflow
 
-Use Node.js 20+ and pnpm 10.10.0. Run the following before opening a pull request:
+Use Node.js 22.12+ and pnpm 10.20.0. Run the following before opening a pull request:
 
 ```bash
 pnpm install
@@ -25,6 +25,7 @@ to rewrite files.
   `public/robots.txt` are produced by the build scripts.
 - Update the README when a command, deployment target, or repository convention
   changes.
+- Do not submit link-farm PRs containing unrelated links or large promotional sections.
 
 Blog MDX is trusted repository content and is compiled as code. Do not add a CMS or
 user-submitted content path without first redesigning that trust boundary.
